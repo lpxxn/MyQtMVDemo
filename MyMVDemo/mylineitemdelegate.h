@@ -2,24 +2,25 @@
 #define MYLINEITEMDELEGATE_H
 
 #include <QItemDelegate>
-
+#include<QString>
 class MyLineItemDelegate : public QItemDelegate
 {
     Q_OBJECT
 public:
     explicit MyLineItemDelegate(QObject *parent = 0);
     ~MyLineItemDelegate();
-signals:
-
-public slots:
-
-
     // QAbstractItemDelegate interface
-public:
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
     void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+signals:
+
+public slots:
+
+private:
+    QString strText;
+
 };
 
 

@@ -78,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //table->setStyleSheet("QTableView{background-color: rgb(250, 250, 115);" "alternate-background-color: rgb(141, 163, 215);}");
     table->setItemDelegateForColumn(0,new MyLineItemDelegate());
+    table->setItemDelegateForColumn(1,new ReadOnlyDelegate());
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     page->addWidget(table);
 
@@ -111,6 +112,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //list->viewport()->setAttribute(Qt::WA_StaticContents);
 
     list->setAttribute(Qt::WA_MacShowFocusRect, true);
+    list->setItemDelegateForColumn(1,new MyLineItemDelegate());
     page->addWidget(list);
 
 
