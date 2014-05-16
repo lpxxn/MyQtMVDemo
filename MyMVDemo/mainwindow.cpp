@@ -13,6 +13,7 @@
 #include<QDebug>
 #include<QListWidget>
 #include<QPixmap>
+#include "mytableviewstyledelegate.h"
 
 void GetData(QList<ItemObject* > &data)
 {
@@ -64,7 +65,9 @@ MainWindow::MainWindow(QWidget *parent) :
    QTableView *table = new QTableView;
    table->setModel(data);
    table->setSelectionModel(selections);
+   table->setItemDelegate(new MyTableViewStyleDelegate());
    table->horizontalHeader()->setSectionsMovable(true);
+   table->setSelectionBehavior(QAbstractItemView::SelectRows);
    table->verticalHeader()->setSectionsMovable(true);
    // Set StaticContents to enable minimal repaints on resizes.
    table->viewport()->setAttribute(Qt::WA_StaticContents);

@@ -9,3 +9,5 @@ QSize MyListItemDelegege::sizeHint(const QStyleOptionViewItem &option, const QMo
 {
     return QSize(90, 100);
 }
+
+

@@ -17,6 +17,8 @@ public slots:
     // QAbstractItemDelegate interface
 public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+
 };
 
 #endif // MYLISTITEMDELEGEGE_H
