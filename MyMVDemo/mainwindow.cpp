@@ -13,6 +13,7 @@
 #include<QDebug>
 #include<QListWidget>
 #include<QPixmap>
+
 void GetData(QList<ItemObject* > &data)
 {
     QString strPath(":/MyImages/folder.png");

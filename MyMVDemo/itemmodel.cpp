@@ -69,7 +69,7 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
         return QVariant();
     ItemObject *item=static_cast<ItemObject*>(index.internalPointer());
     // 添加图标
-    if(role==Qt::DecorationRole)
+    if(role==Qt::DecorationRole&&index.column()==0)
     {
         return item->getMyIcon();
 //        QFileIconProvider iconProvider;
@@ -93,9 +93,20 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+bool ItemModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (index.isValid() && role == Qt::EditRole) {
+        ItemObject *item=static_cast<ItemObject*>(index.internalPointer());
+        item->setName(value.toString());
+        emit dataChanged(index, index);
+        return true;
+    }
+    return false;
+}
+
 QVariant ItemModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if(role==Qt::DisplayRole)
+    if(orientation==Qt::Horizontal&&role==Qt::DisplayRole)
         return headerTitle.value(section);
     return QVariant();
 }
@@ -105,7 +116,7 @@ Qt::ItemFlags ItemModel::flags(const QModelIndex &index) const
     if(!index.isValid())
         return 0;
 
-    return Qt::ItemIsEnabled|Qt::ItemIsSelectable;
+    return Qt::ItemIsEnabled|Qt::ItemIsSelectable|Qt::ItemIsEditable|QAbstractItemModel::flags(index);
 }
 
 QList<QVariant> ItemModel::getHeaderTitle() const
