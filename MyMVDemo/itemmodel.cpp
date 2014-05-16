@@ -1,4 +1,4 @@
-#include "itemmodel.h"
+﻿#include "itemmodel.h"
 #include<QFileIconProvider>
 ItemModel::ItemModel(QObject *parent) :
     QAbstractItemModel(parent)
@@ -116,7 +116,7 @@ Qt::ItemFlags ItemModel::flags(const QModelIndex &index) const
     if(!index.isValid())
         return 0;
 
-    return Qt::ItemIsEnabled|Qt::ItemIsSelectable|Qt::ItemIsEditable|QAbstractItemModel::flags(index);
+    return Qt::ItemIsEnabled|Qt::ItemIsSelectable|QAbstractItemModel::flags(index)|Qt::ItemIsEditable;
 }
 
 QList<QVariant> ItemModel::getHeaderTitle() const

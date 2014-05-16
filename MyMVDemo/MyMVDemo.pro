@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     itemobject.cpp \
     itemmodel.cpp \
     mylistitemdelegege.cpp \
-    mytableviewstyledelegate.cpp
+    mytableviewstyledelegate.cpp \
+    mylineitemdelegate.cpp
 
 HEADERS  += mainwindow.h \
     itemobject.h \
     itemmodel.h \
     mylistitemdelegege.h \
-    mytableviewstyledelegate.h
+    mytableviewstyledelegate.h \
+    mylineitemdelegate.h
 
 FORMS    += mainwindow.ui
 
