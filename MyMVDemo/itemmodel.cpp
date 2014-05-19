@@ -68,18 +68,24 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
     ItemObject *item=static_cast<ItemObject*>(index.internalPointer());
-    // 添加图标
-    if(role==Qt::DecorationRole&&index.column()==0)
-    {
-        return item->getMyIcon();
-        //        QFileIconProvider iconProvider;
-        //        return iconProvider.icon(QFileIconProvider::File);
-    }
 
 
-    // 显示节点数据值
-    if(role==Qt::DisplayRole)
+
+
+
+    switch(role)
     {
+    case Qt::DecorationRole:
+        // 添加图标
+        if(index.column()==0)
+        {
+            return item->getMyIcon();
+            //        QFileIconProvider iconProvider;
+            //        return iconProvider.icon(QFileIconProvider::File);
+        }
+        break;
+    case Qt::DisplayRole:
+        // 显示节点数据值
         if(index.column()==0)
         {
             return item->getName();
@@ -88,6 +94,11 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
         {
             return item->getDesc();
         }
+        break;
+
+    case Qt::UserRole:
+        return item->getIsChecked();
+        break;
     }
 
     return QVariant();
@@ -95,18 +106,27 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
 
 bool ItemModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (index.isValid() && role == Qt::EditRole) {
+    if (index.isValid() ) {
         ItemObject *item=static_cast<ItemObject*>(index.internalPointer());
-        if(value.toString().length()>0)
+        switch(role)
         {
-            item->setName(value.toString());
+            case Qt::EditRole|Qt::DisplayRole:
+
+            if(value.toString().length()>0)
+            {
+                item->setName(value.toString());
+                emit dataChanged(index, index);
+                return true;
+            }
+            break;
+        case Qt::EditRole|Qt::UserRole:
+            item->setIsChecked(value.toBool());
             emit dataChanged(index, index);
             return true;
+            break;
         }
-        else
-        {
-            return false;
-        }
+
+
     }
     return false;
 }

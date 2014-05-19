@@ -16,6 +16,8 @@
 #include "mytableviewstyledelegate.h"
 #include<QModelIndex>
 #include"mylineitemdelegate.h"
+#include "tablecheckedheader.h"
+#include "checkboxdelegate.h"
 void GetData(QList<ItemObject* > &data)
 {
     QString strPath(":/MyImages/folder.png");
@@ -78,11 +80,17 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(table, SIGNAL(customContextMenuRequested(QPoint)),SLOT(customMenuRequested(QPoint)));
 
     //table->setStyleSheet("QTableView{background-color: rgb(250, 250, 115);" "alternate-background-color: rgb(141, 163, 215);}");
-    table->setItemDelegateForColumn(0,new MyLineItemDelegate());
+    //table->setItemDelegateForColumn(0,new MyLineItemDelegate());
+    table->setItemDelegateForColumn(0,new CheckBoxDelegate(table));
     table->setItemDelegateForColumn(1,new ReadOnlyDelegate());
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    page->addWidget(table);
 
+    //header checkbox
+    TableCheckedHeader *m_customHeader = NULL;
+    m_customHeader = new TableCheckedHeader(Qt::Horizontal, this);
+    table->setHorizontalHeader(m_customHeader);
+    connect(m_customHeader, SIGNAL(toggled(bool)), this, SLOT(_headertoggled(bool)));
+    page->addWidget(table);
 
 
     QTreeView *tree = new QTreeView;

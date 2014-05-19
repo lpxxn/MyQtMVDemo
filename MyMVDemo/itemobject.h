@@ -27,12 +27,16 @@ public:
     ItemObject *getParentItem() const;
     void setParentItem(ItemObject *value);
 
+    bool getIsChecked() const;
+    void setIsChecked(bool value);
+
 private:
     ItemObject *parentItem;
     QList<ItemObject*> childItems;
     QString name;
     QString desc;
     QIcon myIcon;
+    bool isChecked;
 };
 
 #endif // ITEMOBJECT_H

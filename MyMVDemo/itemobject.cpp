@@ -6,12 +6,14 @@
 ItemObject::ItemObject(ItemObject * parent)
 {
     parentItem=parent;
+    setIsChecked(false);
 }
 
 ItemObject::ItemObject(QString strName, QString strDesc, QString strIconPath, ItemObject *parent):
     name(strName),desc(strDesc),parentItem(parent)
 {
     setMyIcon(strIconPath);
+    setIsChecked(false);
 }
 
 ItemObject::~ItemObject()
@@ -86,6 +88,16 @@ void ItemObject::setParentItem(ItemObject *value)
 {
     parentItem = value;
 }
+bool ItemObject::getIsChecked() const
+{
+    return isChecked;
+}
+
+void ItemObject::setIsChecked(bool value)
+{
+    isChecked = value;
+}
+
 
 ItemObject *ItemObject::getParentItem() const
 {

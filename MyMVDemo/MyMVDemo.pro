@@ -18,14 +18,18 @@ SOURCES += main.cpp\
     itemmodel.cpp \
     mylistitemdelegege.cpp \
     mytableviewstyledelegate.cpp \
-    mylineitemdelegate.cpp
+    mylineitemdelegate.cpp \
+    tablecheckedheader.cpp \
+    checkboxdelegate.cpp
 
 HEADERS  += mainwindow.h \
     itemobject.h \
     itemmodel.h \
     mylistitemdelegege.h \
     mytableviewstyledelegate.h \
-    mylineitemdelegate.h
+    mylineitemdelegate.h \
+    tablecheckedheader.h \
+    checkboxdelegate.h
 
 FORMS    += mainwindow.ui
 
