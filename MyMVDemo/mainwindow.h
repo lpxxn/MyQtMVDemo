@@ -7,6 +7,7 @@
 #include<QListView>
 #include<QMenu>
 #include<QAction>
+#include<QItemSelectionModel>
 namespace Ui {
 class MainWindow;
 }
@@ -26,10 +27,15 @@ private:
     QListView *list;
     QMenu * myMenu;
     QAction * reNameAction;
-
+    QItemSelectionModel *selections;
 public slots:
     void customMenuRequested(QPoint pos);
     void customHeaderMenuRequested(QPoint pos);
+    void CustomListMenuRequested(QPoint pos);
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *);
 };
 
 #endif // MAINWINDOW_H

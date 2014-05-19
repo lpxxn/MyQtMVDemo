@@ -72,8 +72,8 @@ QVariant ItemModel::data(const QModelIndex &index, int role) const
     if(role==Qt::DecorationRole&&index.column()==0)
     {
         return item->getMyIcon();
-//        QFileIconProvider iconProvider;
-//        return iconProvider.icon(QFileIconProvider::File);
+        //        QFileIconProvider iconProvider;
+        //        return iconProvider.icon(QFileIconProvider::File);
     }
 
 
@@ -97,9 +97,16 @@ bool ItemModel::setData(const QModelIndex &index, const QVariant &value, int rol
 {
     if (index.isValid() && role == Qt::EditRole) {
         ItemObject *item=static_cast<ItemObject*>(index.internalPointer());
-        item->setName(value.toString());
-        emit dataChanged(index, index);
-        return true;
+        if(value.toString().length()>0)
+        {
+            item->setName(value.toString());
+            emit dataChanged(index, index);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     return false;
 }

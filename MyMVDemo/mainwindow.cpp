@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     data =new ItemModel(Q_NULLPTR);
     data->setHeaderTitle(title);
     data->BindingData(values);
-    QItemSelectionModel *selections = new QItemSelectionModel(data);
+    selections = new QItemSelectionModel(data);
 
     table = new QTableView;
     table->setModel(data);
@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     table->horizontalHeader()->setSectionsMovable(true);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->verticalHeader()->setSectionsMovable(true);
+    table->horizontalHeader()->setStretchLastSection(true);
     // Set StaticContents to enable minimal repaints on resizes.
     table->viewport()->setAttribute(Qt::WA_StaticContents);
     table->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -112,7 +113,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //list->viewport()->setAttribute(Qt::WA_StaticContents);
 
     list->setAttribute(Qt::WA_MacShowFocusRect, true);
-    list->setItemDelegateForColumn(1,new MyLineItemDelegate());
+    //list->setItemDelegateForColumn(1,new MyLineItemDelegate());
+
+    list->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //menu
+    list->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(list,SIGNAL(customContextMenuRequested(QPoint)),SLOT(CustomListMenuRequested(QPoint)));
     page->addWidget(list);
 
 
@@ -136,7 +142,7 @@ void MainWindow::IniMenu()
 
 void MainWindow::customMenuRequested(QPoint pos)
 {
-    QModelIndex index=table->indexAt(pos);
+    QModelIndex index=selections->currentIndex();//table->indexAt(pos);
     ItemObject *item=static_cast<ItemObject*>(index.internalPointer());
     if(item)
     {
@@ -154,4 +160,31 @@ void MainWindow::customMenuRequested(QPoint pos)
 void MainWindow::customHeaderMenuRequested(QPoint pos)
 {
 
+}
+
+void MainWindow::CustomListMenuRequested(QPoint pos)
+{
+    QModelIndex index=selections->currentIndex();//table->indexAt(pos);
+    ItemObject *item=static_cast<ItemObject*>(index.internalPointer());
+
+    if(item)
+    {
+        qDebug()<<index.row()<<index.column()<<"name"<<item->getName();
+        //        QMenu *menu=new QMenu(this);
+        //           menu->addAction(new QAction("Action 1", this));
+        //           menu->addAction(new QAction("Action 2", this));
+        //           menu->addAction(new QAction("Action 3", this));
+        list->setEditTriggers(QAbstractItemView::AllEditTriggers);
+        list->edit(index);
+        //menu->popup(table->viewport()->mapToGlobal(pos));
+        list->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    }
+}
+
+void MainWindow::resizeEvent(QResizeEvent *)
+{
+//    table->setColumnWidth(0, this->width()/3);
+//        table->setColumnWidth(1, this->width()/3);
+//        table->setColumnWidth(2, this->width()/3);
+    //QMainWindow::resizeEvent(event);
 }
