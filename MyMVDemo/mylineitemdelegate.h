@@ -21,6 +21,10 @@ public slots:
 private:
     QString strText;
 
+
+    // QAbstractItemDelegate interface
+public:
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
 

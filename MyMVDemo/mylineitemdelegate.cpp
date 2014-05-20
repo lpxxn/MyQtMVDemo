@@ -16,6 +16,7 @@ QWidget *MyLineItemDelegate::createEditor(QWidget *parent, const QStyleOptionVie
     QLineEdit *editor = new QLineEdit(parent);
     //    QRegExp regExp("[0-9]{0,10}");
     //    editor->setValidator(new QRegExpValidator(regExp, parent));
+
     return editor;
 }
 
@@ -43,6 +44,12 @@ void MyLineItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model
 void MyLineItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     editor->setGeometry(option.rect);
+}
+
+QSize MyLineItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    QSize size=QSize(30,option.rect.height());
+    return size;
 }
 
 

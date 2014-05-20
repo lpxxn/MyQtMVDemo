@@ -22,6 +22,7 @@ private:
     QPen         pen;
     QTableView*  view;
     QRect CheckBoxRect(const QStyleOptionViewItem &view_item_style_options) const;
+    bool IsMouseHover(bool isHover);
 signals:
     void Checked(const QModelIndex& index,bool isChecked);
 };
